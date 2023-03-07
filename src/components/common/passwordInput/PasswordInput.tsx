@@ -23,7 +23,7 @@ const PasswordInput = (props: IPasswordInput) =>{
 
   return(
     <FormControl isRequired m={'0 0 30px 0'}>
-        <FormLabel fontSize={'xl'} m={'10px 0 0'}>{props.title}</FormLabel>
+        <FormLabel fontSize={'xl'} m={'0 0 5px 0'}>{props.title}</FormLabel>
         <InputGroup>
           <Input variant='flushed' onChange={props.onChange} type={visability ? 'text' : 'password'} placeholder={props.placeholder}/>
           <InputRightElement width='4.5rem'>

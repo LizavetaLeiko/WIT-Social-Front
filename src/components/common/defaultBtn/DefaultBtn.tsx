@@ -16,7 +16,7 @@ const DefaultBtn = (props: IBtn) =>{
 
   return(
     <Button p={props.padding ? props.padding : '30px'} 
-            disabled={props.disabled ? props.disabled : false} 
+            isDisabled={props.disabled ? props.disabled : false}
             onClick={props.onClick} 
             m={props.margin ? props.margin : '0px'}  
             maxWidth={props.maxW ? props.maxW : '300px'}

@@ -12,9 +12,9 @@ interface ISelect{
 
 const SelectInput = (props : ISelect) =>{
   return(
-    <Box>
+    <Box  m={'0 0 40px 0'}>
       <Text fontSize={'xl'} m={'10px 0'}>{props.title}</Text>
-      <Select m={'0 0 30px 0'} onChange={props.onChange} placeholder={props.value} required={props.required ? props.required : true }>
+      <Select onChange={props.onChange} placeholder={props.value} required={props.required ? props.required : true }>
             {
               props.arr.map((item)=>{
                 return(

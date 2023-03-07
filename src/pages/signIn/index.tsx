@@ -29,7 +29,7 @@ const SignIn = () =>{
 
   return(<Flex justify={'center'} p={'65px 20px'} align={'center'} h={'100vh'}>
     <Box maxWidth={'500px'} w={'100%'} textAlign={'center'}>
-      <Text fontSize={'5xl'} fontWeight={'600'} m={'0 0 60px 0'}>Войти</Text>
+      <Text fontSize={'5xl'} fontWeight={'600'} m={'0 0 60px 0'}>SignIn</Text>
       <TextInput placeholder="email" label="Enter your email" onChange={changeEmail}/>
       <PasswordInput title={"Your password"} onChange={changePassword} placeholder={"password"}/>
       <DefaultBtn title={"Sign In"} margin={'50px 0 20px'}/>

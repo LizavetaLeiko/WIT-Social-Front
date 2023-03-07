@@ -6,8 +6,7 @@ const Header = () => {
     <Flex
       as="header"
       w={"100%"}
-      p={"25px 25px"}
-      background={"black"}
+      p={"10px 25px"}
       color={"white"}
       justify={'flex-start'}
       align={'flex-start'}
@@ -22,7 +21,7 @@ const Header = () => {
         <Image
           width={85.5}
           height={34}
-          src={"assets/imgs/wit.svg"}
+          src={"assets/imgs/wit1.svg"}
           alt="WIT social network"
         />
       </Flex>
@@ -31,7 +30,7 @@ const Header = () => {
         <Text  fontSize={'sm'}>Пользователь</Text>
       </Flex>
       </Flex>
-      <Flex gap={'20px'} justify={'center'} align={'flex-start'} maxW={'800px'} w={'100%'} flexDirection={'column'}  fontSize={'xl'}>
+      <Flex gap={'20px'} justify={'center'} align={'flex-start'} maxW={'800px'} flexDirection={'column'}  fontSize={'xl'}>
         <Link>Мои диалоги</Link>
         <Link>Новости</Link>
         <Link>Вакансии</Link>

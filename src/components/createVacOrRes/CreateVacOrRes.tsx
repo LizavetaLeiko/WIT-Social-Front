@@ -66,11 +66,24 @@ const CreateVacOrRes = (props: ICreateVacOrRes) =>{
   return<Modal finalFocusRef={props.finalRef} isOpen={props.isOpen} onClose={props.onClose}>
   <ModalOverlay />
   <ModalContent color={'#000'} maxW={'700px'} w={'100%'}>
-    <ModalHeader fontSize={'3xl'} textAlign={'center'} m={'25px 0 0'}>{props.title}</ModalHeader>
+    <ModalHeader fontSize={'3xl'} textAlign={'center'} m={'35px 0'}>{props.title}</ModalHeader>
     <ModalCloseButton/>
     <ModalBody>
       <TextInput onChange={changePosition} label={"Position"} placeholder={"For example, Frontend developer"}/>
       <TextInput onChange={changeLocation} label={"Location"} placeholder={"For example, Moscow"} isRequired={false}/>
+      {/* <FormControl isRequired={false} m={'0 0 40px 0'}>
+        <FormLabel fontSize={'xl'} m={'10px 0 0'}>Are you ready to relocate?</FormLabel>
+          <RadioGroup defaultValue='2'>
+          <Stack spacing={5} direction='row'>
+            <Radio colorScheme='red' value='1'>
+              Yes
+            </Radio>
+            <Radio colorScheme='green' value='2'>
+              No
+            </Radio>
+          </Stack>
+        </RadioGroup>
+      </FormControl> */}
       <SelectInput arr={directions} onChange={changeDirection} title={'Direction'} value={direction}/>
       <SelectInput arr={levels} required={false} onChange={changeLevel} title={'Level'} value={level}/>
       <SelectInput arr={years} onChange={changeExperience} title={'Experience'} value={experience}/>
