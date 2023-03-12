@@ -1,8 +1,9 @@
 import DefaultBtn from "@/components/common/defaultBtn/DefaultBtn";
+import CreatePostForm from "@/components/createPostForm/CreatePostForm";
 import { userDataApi } from "@/redux/redusers/userDataApi";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 
 const UserPage = () =>{
@@ -13,15 +14,18 @@ const UserPage = () =>{
     console.log(userData)
   }, [])
 
+  const {onOpen, isOpen, onClose} = useDisclosure();
+  const finalRef = useRef(null)
+
 
   return(<Flex justify={'center'} align={'start'}>
     <Flex justify={'space-between'} p={'80px 20px'} align={'start'} h={'100vh'} w={'65%'} gap={'10px'}>
-    <Box w={'100%'} fontSize={'2xl'}>
+    <Box w={'100%'} fontSize={'2xl'} ref={finalRef}>
       <Box backgroundColor={"whiteAlpha.300"} p={'10px 20px 20px'} borderRadius={'5px'} marginBottom={'5px'}>
         <Text fontSize={'5xl'}>{userData?.name}</Text>
         <Text opacity={'70%'}>@{userData?.userId.nickname}</Text>
       </Box>
-      <Flex flexDirection={'column'} gap={'10px'} backgroundColor={"whiteAlpha.300"} p={'20px'} borderRadius={'5px'}>
+      <Flex marginBottom={'5px'} flexDirection={'column'} gap={'10px'} backgroundColor={"whiteAlpha.300"} p={'20px'} borderRadius={'5px'}>
         <Flex gap={'10px'}>
           <Text fontWeight={'light'}>Speciality:</Text>
           <Text>{userData?.speciality}</Text>
@@ -39,7 +43,11 @@ const UserPage = () =>{
           <Text>{userData?.description}</Text>
         </Flex>
       </Flex>
-    </Box>
+      <Box backgroundColor={"whiteAlpha.300"} p={'10px 20px 20px'} borderRadius={'5px'} marginBottom={'5px'} padding={'10px'}>
+        <DefaultBtn title={"Create new post"} onClick={onOpen} maxW={'100%'} fSize={'2xl'} fWeight={'500'}/>
+      </Box>
+      <CreatePostForm isOpen={isOpen} finalRef={finalRef} onClick={undefined} onClose={onClose}/>
+      </Box>
     <Box>
       <Box marginBottom={'10px'}>
         <Image width={300}
