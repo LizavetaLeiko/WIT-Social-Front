@@ -1,14 +1,6 @@
+import { IUserData } from "@/utils/Interfaces";
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 
-interface IUserData {
-    userId: string,
-    name: string,
-    speciality: string,
-    bDay: string,
-    location: string,
-    description: string,
-    // photoLink: string,
-}
 
 export const userDataApi = createApi({
     reducerPath: 'UserDataAPI',
