@@ -15,7 +15,7 @@ const CreatePostForm = (props: ICreatePostForm )=>{
 
   const [header, setHeader] = useState<string>('');
   const [text, setText] = useState<string>('');
-  const [file, setFile] = useState<any>('');
+  const [file, setFile] = useState<string>('');
 
   const handleHeader = (event: React.ChangeEvent<HTMLInputElement>) =>{
     setHeader(event.target.value)

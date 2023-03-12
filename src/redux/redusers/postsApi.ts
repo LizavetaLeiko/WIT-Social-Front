@@ -33,5 +33,19 @@ export const PostsApi = createApi({
             }),
             providesTags: result => ['Posts']
         }),
+        likePost: build.mutation<IPost, string>({
+            query: (postId) => ({
+                url: `/likepost/${postId}`,
+                method: 'PUT',
+            }),
+            invalidatesTags: ['Posts']
+        }),
+        unlikePost: build.mutation<IPost, string>({
+            query: (postId) => ({
+                url: `/unlikepost/${postId}`,
+                method: 'PUT',
+            }),
+            invalidatesTags: ['Posts']
+        }),
     })
 })
