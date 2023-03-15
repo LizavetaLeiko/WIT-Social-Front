@@ -1,6 +1,7 @@
 import DefaultBtn from "@/components/common/defaultBtn/DefaultBtn";
 import CreatePostForm from "@/components/createPostForm/CreatePostForm";
-import { userDataApi } from "@/redux/redusers/userDataApi";
+import CreateVacOrRes from "@/components/createVacOrRes/CreateVacOrRes";
+import { useAppSelector } from "@/redux/types";
 import { Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
@@ -8,45 +9,55 @@ import { useEffect, useState, useRef } from "react";
 
 const UserPage = () =>{
 
-  const { data: userData,  error, isLoading } = userDataApi.useGetUserDataQuery('63ecdd30bc318d56ef2fcbe9')
+  const user = useAppSelector((state) =>state.userSlice.user); 
+  useEffect(() =>{
+    console.log(user)
+  })
 
-  useEffect( ()=>{
-    console.log(userData)
-  }, [])
+  const {onOpen: firstModalOnOpen, isOpen: firstModalIsOpen, onClose: firstModalOnClose} = useDisclosure();
+  const {onOpen: secondModalOnOpen, isOpen: secondModalIsOpen, onClose: secondModalOnClose} = useDisclosure();
+  const refPost = useRef(null);
+  const refVac = useRef(null);
 
-  const {onOpen, isOpen, onClose} = useDisclosure();
-  const finalRef = useRef(null)
+  const [typeOfPost, setTypeOfPost] = useState<string>('');
 
+  const handleTypeOfPost = (e: any) =>{
+    setTypeOfPost(e.target.value)
+    secondModalOnOpen()
+  }
 
-  return(<Flex justify={'center'} align={'start'}>
-    <Flex justify={'space-between'} p={'80px 20px'} align={'start'} h={'100vh'} w={'65%'} gap={'10px'}>
-    <Box w={'100%'} fontSize={'2xl'} ref={finalRef}>
+  return(<Flex justify={'center'} align={'start'} ref={refPost}>
+    <Flex justify={'space-between'} ref={refVac} p={'40px 20px'} align={'start'} h={'100vh'} w={'65%'} gap={'10px'}>
+    <Box w={'100%'} fontSize={'xl'}>
       <Box backgroundColor={"whiteAlpha.300"} p={'10px 20px 20px'} borderRadius={'5px'} marginBottom={'5px'}>
-        <Text fontSize={'5xl'}>{userData?.name}</Text>
-        <Text opacity={'70%'}>@{userData?.userId.nickname}</Text>
+        <Text fontSize={'4xl'}>{user.userDataId?.name}</Text>
+        <Text opacity={'70%'}>@{user.nickname}</Text>
       </Box>
       <Flex marginBottom={'5px'} flexDirection={'column'} gap={'10px'} backgroundColor={"whiteAlpha.300"} p={'20px'} borderRadius={'5px'}>
         <Flex gap={'10px'}>
           <Text fontWeight={'light'}>Speciality:</Text>
-          <Text>{userData?.speciality}</Text>
+          <Text>{user.userDataId.speciality}</Text>
         </Flex>
         <Flex gap={'10px'}>
           <Text fontWeight={'light'}>Birth-day:</Text>
-          <Text>{userData?.bDay}</Text>
+          <Text>{user.userDataId.bDay}</Text>
         </Flex>
         <Flex gap={'10px'}>
           <Text fontWeight={'light'}>Location:</Text>
-          <Text>{userData?.location}</Text>
+          <Text>{user.userDataId.location}</Text>
         </Flex>
         <Flex gap={'10px'}>
           <Text fontWeight={'light'}>About me:</Text>
-          <Text>{userData?.description}</Text>
+          <Text>{user.userDataId.description}</Text>
         </Flex>
       </Flex>
-      <Box backgroundColor={"whiteAlpha.300"} p={'10px 20px 20px'} borderRadius={'5px'} marginBottom={'5px'} padding={'10px'}>
-        <DefaultBtn title={"Create new post"} onClick={onOpen} maxW={'100%'} fSize={'2xl'} fWeight={'500'}/>
-      </Box>
-      <CreatePostForm isOpen={isOpen} finalRef={finalRef} onClick={undefined} onClose={onClose}/>
+      <Flex  backgroundColor={"whiteAlpha.300"} gap={'10px'} p={'10px 20px 20px'} borderRadius={'5px'} marginBottom={'5px'} padding={'10px'}>
+        <DefaultBtn title={"Create new post"} onClick={firstModalOnOpen} maxW={'100%'} fWeight={'500'} padding={'15px'}/>
+        <DefaultBtn title={"Create vacancy"} onClick={handleTypeOfPost} maxW={'100%'} fWeight={'500'} padding={'15px'} value={'vacancy'}/>
+        <DefaultBtn title={"Create resume"} onClick={handleTypeOfPost} maxW={'100%'} fWeight={'500'} padding={'15px'} value={'resume'}/>
+      </Flex>
+      <CreatePostForm isOpen={firstModalIsOpen} finalRef={refPost} onClick={undefined} onClose={firstModalOnClose}/>
+      <CreateVacOrRes isOpen={secondModalIsOpen} finalRef={refVac} onClick={undefined} title={typeOfPost === 'vacancy' ? "Create vacancy" : "Create resume"} onClose={secondModalOnClose}/>
       </Box>
     <Box>
       <Box marginBottom={'10px'}>

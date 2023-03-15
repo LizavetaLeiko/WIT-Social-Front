@@ -4,6 +4,8 @@ import Image from "next/image";
 import DefaultBtn from "@/components/common/defaultBtn/DefaultBtn";
 import TextInput from "@/components/common/TextInput/TextInput";
 import PasswordInput from "@/components/common/passwordInput/PasswordInput";
+import { useDispatch } from "react-redux";
+import { login } from "@/redux/redusers/userReduser";
 
 
 
@@ -27,12 +29,17 @@ const SignIn = () =>{
     setVisability(!visability)
   }
 
+  const dispatch = useDispatch();
+  const handleLogin =() =>{
+    dispatch(login({email: email, password: password}))
+  }
+
   return(<Flex justify={'center'} p={'65px 20px'} align={'center'} h={'100vh'}>
     <Box maxWidth={'500px'} w={'100%'} textAlign={'center'}>
       <Text fontSize={'5xl'} fontWeight={'600'} m={'0 0 60px 0'}>SignIn</Text>
       <TextInput placeholder="email" label="Enter your email" onChange={changeEmail}/>
       <PasswordInput title={"Your password"} onChange={changePassword} placeholder={"password"}/>
-      <DefaultBtn title={"Sign In"} margin={'50px 0 20px'}/>
+      <DefaultBtn title={"Sign In"} margin={'50px 0 20px'} onClick={handleLogin}/>
     </Box>
   </Flex>)
 }

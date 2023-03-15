@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { ChakraProvider, extendTheme} from '@chakra-ui/react'
 import defaultTheme from '../theme/theme'
 import Layout from '@/hoc/layout/Layout';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { setupStore } from '@/redux/store';
 
 export default function App({ Component, pageProps }: AppProps) {

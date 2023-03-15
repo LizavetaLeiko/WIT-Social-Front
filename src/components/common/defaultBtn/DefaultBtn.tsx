@@ -9,13 +9,14 @@ interface IBtn{
   margin?: string,
   fSize?: string,
   fWeight?: string,
+  value?: string
 }
 
 
 const DefaultBtn = (props: IBtn) =>{
 
   return(
-    <Button p={props.padding ? props.padding : '30px'} 
+    <Button p={props.padding ? props.padding : '25px'} 
             isDisabled={props.disabled ? props.disabled : false}
             onClick={props.onClick} 
             m={props.margin ? props.margin : '0px'}  
@@ -24,6 +25,7 @@ const DefaultBtn = (props: IBtn) =>{
             fontSize={props.fSize ? props.fSize : 'xl'}
             fontWeight={props.fWeight ? props.fWeight : '700'}
             w={'100%'}
+            value={props.value ? props.value : ''}
             >
               {props.title}
     </Button>

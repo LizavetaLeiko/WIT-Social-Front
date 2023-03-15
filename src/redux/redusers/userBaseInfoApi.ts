@@ -1,25 +1,19 @@
-import { IUser } from "@/utils/Interfaces";
+import { IUser, IUserReg, IUserWithData } from "@/utils/Interfaces";
+import { $CombinedState } from "@reduxjs/toolkit";
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
+import { RootState } from "../types";
 
 
 export const userBaseInfoApi = createApi({
     reducerPath: 'UserAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8000/api'}),
-    tagTypes: ['UserBaseInfo'],
+    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8000/api/',}),
+    tagTypes: ['Users'],
     endpoints: (build) => ({
-        getUserBaseInfo: build.query<IUser, string>({
-            query: (id) => ({
-                url: `/user/${id}`,
+        getAllUsers: build.query<IUserWithData, string>({
+            query: () => ({
+                url: `/users`,
             }),
-            providesTags: result => ['UserBaseInfo']
-        }),
-        setUserBaseInfo: build.mutation<IUser, IUser>({
-            query: (body) => ({
-                url: `/registration`,
-                method: 'POST',
-                body: body
-            }),
-            invalidatesTags: ['UserBaseInfo']
+            providesTags: result => ['Users']
         }),
     })
 })

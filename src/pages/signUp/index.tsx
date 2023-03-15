@@ -7,6 +7,8 @@ import PasswordInput from "@/components/common/passwordInput/PasswordInput";
 import { userBaseInfoApi } from "@/redux/redusers/userBaseInfoApi";
 import { v4 } from "uuid";
 import DefModal from "@/components/common/defaultModal/DefaultModal";
+import { useDispatch } from "react-redux";
+import { registration } from "@/redux/redusers/userReduser";
 
 
 const SignUp = () =>{
@@ -59,10 +61,10 @@ const SignUp = () =>{
     }
   }, [errorS, notSame, email, nickname]);
 
-  const [createUser, {isLoading, error}] = userBaseInfoApi.useSetUserBaseInfoMutation();
+  const dispatch = useDispatch();
 
-  const handleCreateUser = async()=>{
-      await createUser({email: email, nickname: nickname, password: secondPassword});
+  const handleCreateUser = ()=>{
+      dispatch(registration({email: email, nickname: nickname, password: secondPassword}));
       onOpen()
   }
 
@@ -74,12 +76,8 @@ const SignUp = () =>{
       <PasswordInput title={"Create password"} onChange={changeFirstPassword} placeholder={"password"} helper={true} helperText={'Must contains at least 1 number, 1 Latin letter in upper and lower cases, and at least 8 symbols'}/>
       <PasswordInput title={"Repeate password"} onChange={changeSecondPassword} placeholder={"repeate password"} error={notSame} helperText={'Passwords are not the same'}/>
       <DefaultBtn title={"Sign Up"} margin={'50px 0 20px'} disabled={!formValid} onClick={handleCreateUser}/>
-      {/* @ts-ignore */}
-      <DefModal isOpen={isOpen} finalRef={finalRef} title={error ? "Error" : 'Your account has been created'} text={error && 'data' in error ? error?.data?.message : 'We have sent you a confirmation email'} onClose={onClose}/>
-      {/* <Button onClick={onOpen}>Open modal</Button>
-      {
-        isOpen && <CreateVacancy isOpen={isOpen} finalRef={finalRef} onClick={undefined} title={"Create resume"} onClose={onClose}/>
-      } */}
+      {/* <DefModal isOpen={isOpen} finalRef={finalRef} title={error ? "Error" : 'Your account has been created'} text={error && 'data' in error ? error?.data?.message : 'We have sent you a confirmation email'} onClose={onClose}/> */}
+      <DefModal isOpen={isOpen} finalRef={finalRef} title={'Your account has been created'} text={'We have sent you a confirmation email'} onClose={onClose}/>
     </Box>
   </Flex>)
 }

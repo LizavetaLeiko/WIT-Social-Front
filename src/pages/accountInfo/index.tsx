@@ -1,11 +1,11 @@
 import DefaultBtn from "@/components/common/defaultBtn/DefaultBtn";
 import TextInput from "@/components/common/TextInput/TextInput";
-import { userDataApi } from "@/redux/redusers/userDataApi";
 import { Box, Flex, FormControl, FormLabel, Input, Text, Textarea } from "@chakra-ui/react";
 import Image from "next/image";
 import { useState } from "react";
 import axios from "axios";
-import { userBaseInfoApi } from "@/redux/redusers/userBaseInfoApi";
+import { useDispatch } from "react-redux";
+import { setUserData } from "@/redux/redusers/userReduser";
 
 const AccountInfo = ()=>{
   
@@ -35,39 +35,16 @@ const AccountInfo = ()=>{
     setDesc(event.target.value);
   };
 
-  const aploadPhoto = async (file: any) =>{
-    const data = new FormData();
-    data.append('photo', file);
-    data.append('WITaccountPhotos', 'AccountPhoto');
-
-    try{
-      const res = await axios.post('https://res.cloudinary.com/accountphotos/upload', data)
-      const { photoURL } = res.data;
-      console.log(photoURL)
-      return photoURL;
-    }
-    catch(e){
-      console.log(e)
-    }
-  }
-
-
-  const [setUserData, {isLoading, error}] = userDataApi.useSetUserDataMutation();
-  const { data: UserBaseInfo } = userBaseInfoApi.useGetUserBaseInfoQuery('63ecdd30bc318d56ef2fcbe9')
-
+  const dispatch = useDispatch();
 
   const handleSetUserData = async()=>{
-      await setUserData({
+      await dispatch(setUserData({
         name: name, 
         speciality: speciality, 
         location: location,
-        userId: {
-          email: UserBaseInfo?.email,
-          nickname: UserBaseInfo?.nickname,
-        },
         bDay: bDay,
         description: desc
-      });
+      }));
   }
 
   return(
@@ -77,7 +54,7 @@ const AccountInfo = ()=>{
       <FormControl isRequired={false} m={'0 0 40px 0'}>
         <FormLabel fontSize={'xl'} m={'0 0 10px 0 '}>Your photo</FormLabel>
         <Box position={'relative'}>
-          <Input position={'relative'} cursor={'pointer'} zIndex={'5'} type='file' onChange={aploadPhoto} h={'150px'} w={'150px'} opacity={'0'} />
+          <Input position={'relative'} cursor={'pointer'} zIndex={'5'} type='file' onChange={undefined} h={'150px'} w={'150px'} opacity={'0'} />
           <Box position={'absolute'} zIndex={'4'} top={'0'} left={'0'}>
             <Image src={'assets/imgs/plus.svg'} alt={"Add photo"} width={150} height={150}/>
           </Box>
